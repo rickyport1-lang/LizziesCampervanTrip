@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campervan Trip 2025 — Where Could We Go?</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Raleway:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #0d2137;
+    --ocean-mid: #1a3a52;
+    --ocean-teal: #2a7f8f;
+    --shore-sand: #c9a96e;
+    --fossil-gold: #d4a843;
+    --chalk-white: #f5f0e8;
+    --sea-foam: #a8d5dc;
+    --dusk-coral: #c46b3a;
+    --text-light: #e8e0d0;
+    --text-muted: #9bb0bc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ocean-deep); color: var(--text-light); font-family: 'Raleway', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; background: rgba(13,33,55,0.75); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--shore-sand); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--fossil-gold); }
+  @media (max-width: 600px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; background: radial-gradient(ellipse at 20% 80%, rgba(42,127,143,0.25) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(196,107,58,0.15) 0%, transparent 50%), linear-gradient(175deg, #0d2137 0%, #0f2a42 40%, #132f47 70%, #0a1c2e 100%); }
+  .hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(42,127,143,0.05) 38px, rgba(42,127,143,0.05) 39px); animation: drift 20s linear infinite; }
+  @keyframes drift { 0% { transform: translateY(0); } 100% { transform: translateY(39px); } }
+  .ammonite-bg { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); width: 600px; height: 600px; opacity: 0.04; pointer-events: none; }
+  .hero-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--fossil-gold); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 6.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; color: var(--chalk-white); opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+  .hero-title em { font-style: italic; color: var(--sea-foam); display: block; }
+  .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-style: italic; color: var(--shore-sand); margin-top: 1.2rem; letter-spacing: 0.05em; opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards; }
+  .hero-dates { margin-top: 2.5rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.9s forwards; }
+  .hero-date-pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(212,168,67,0.3); padding: 0.5rem 1.1rem; border-radius: 50px; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fossil-gold); }
+  .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); opacity: 0; animation: fadeUp 0.8s ease 1.4s forwards; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--ocean-teal), transparent); animation: pulse-line 2s ease-in-out infinite; }
+  @keyframes pulse-line { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--ocean-teal); margin-bottom: 0.8rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--chalk-white); line-height: 1.1; margin-bottom: 2.5rem; }
+  .section-title span { color: var(--fossil-gold); font-style: italic; }
+  .divider { width: 60px; height: 2px; background: linear-gradient(to right, var(--ocean-teal), var(--fossil-gold)); margin: 1.5rem 0 2.5rem; }
+  .page-divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(42,127,143,0.3), transparent); }
+
+  /* PHOTO MOSAIC */
+  .photo-mosaic { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 4px; border-radius: 12px; overflow: hidden; }
+  .mosaic-panel { position: relative; overflow: hidden; }
+  .mosaic-panel:first-child { grid-row: 1 / 3; }
+  .mosaic-panel img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.5s ease; filter: saturate(0.8) brightness(0.85); }
+  .mosaic-panel:hover img { transform: scale(1.05); filter: saturate(1.1) brightness(0.95); }
+  .mosaic-panel .caption { position: absolute; bottom: 0.6rem; left: 0.8rem; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.65); pointer-events: none; }
+  @media (max-width: 600px) { .photo-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 150px 150px 150px; } .mosaic-panel:first-child { grid-row: auto; } }
+
+  /* CARDS */
+  .hire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 700px) { .hire-grid { grid-template-columns: 1fr; } }
+  .info-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .info-card:hover { border-color: rgba(42,127,143,0.35); transform: translateY(-2px); }
+  .info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(to bottom, var(--ocean-teal), transparent); }
+  .info-card.gold::before { background: linear-gradient(to bottom, var(--fossil-gold), transparent); }
+  .info-card.coral::before { background: linear-gradient(to bottom, var(--dusk-coral), transparent); }
+  .info-card.full { grid-column: 1 / -1; }
+  .card-icon { font-size: 1.3rem; margin-bottom: 0.7rem; display: block; }
+  .card-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .card-value { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--chalk-white); }
+  .card-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.5; }
+
+  /* COST TABLE */
+  .cost-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .cost-table tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .cost-table td { padding: 0.85rem 0.5rem; color: var(--text-light); }
+  .cost-table td:last-child { text-align: right; color: var(--fossil-gold); font-family: 'Playfair Display', serif; font-size: 1rem; }
+  .cost-table .total-row td { color: var(--chalk-white); font-weight: 600; border-top: 2px solid rgba(212,168,67,0.4); padding-top: 1rem; }
+  .cost-table .total-row td:last-child { font-size: 1.5rem; font-weight: 700; }
+  .cost-table .per-row td { color: var(--sea-foam); font-style: italic; font-size: 0.85rem; }
+  .cost-table .per-row td:last-child { color: var(--sea-foam); font-size: 1rem; }
+  .cost-note { font-size: 0.74rem; color: var(--text-muted); font-style: italic; margin-top: 0.8rem; line-height: 1.6; }
+
+  /* CANCELLATION TABLE */
+  .cancel-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; max-width: 540px; }
+  .cancel-table th { text-align: left; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); padding: 0.5rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; }
+  .cancel-table td { padding: 0.8rem; color: var(--text-light); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .cancel-table td:last-child { color: var(--dusk-coral); font-family: 'Playfair Display', serif; font-size: 1rem; text-align: right; }
+
+  /* ALERTS */
+  .alert { background: rgba(196,107,58,0.08); border: 1px solid rgba(196,107,58,0.25); border-left: 3px solid var(--dusk-coral); border-radius: 8px; padding: 1.1rem 1.4rem; font-size: 0.84rem; color: var(--text-light); line-height: 1.7; margin-bottom: 1rem; }
+  .alert strong { color: var(--dusk-coral); }
+  .note { background: rgba(42,127,143,0.07); border: 1px solid rgba(42,127,143,0.2); border-left: 3px solid var(--ocean-teal); border-radius: 8px; padding: 1.1rem 1.4rem; font-size: 0.84rem; color: var(--text-light); line-height: 1.7; margin-bottom: 1rem; }
+  .note strong { color: var(--sea-foam); }
+
+  /* DEPOSIT PILL */
+  .deposit-pill { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(168,213,220,0.07); border: 1px solid rgba(168,213,220,0.2); border-radius: 8px; padding: 0.9rem 1.2rem; font-size: 0.84rem; color: var(--sea-foam); margin-top: 1.2rem; line-height: 1.5; }
+
+  /* BADGES */
+  .tbc-badge { display: inline-block; background: rgba(212,168,67,0.08); border: 1px dashed rgba(212,168,67,0.35); color: var(--fossil-gold); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.18rem 0.6rem; border-radius: 4px; margin-top: 0.5rem; }
+  .al-badge { display: inline-block; background: rgba(42,127,143,0.12); border: 1px solid rgba(42,127,143,0.35); color: var(--sea-foam); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.18rem 0.6rem; border-radius: 4px; margin-left: 0.4rem; }
+
+  /* DESTINATION ACCORDIONS */
+  .dest-grid { display: flex; flex-direction: column; gap: 1rem; }
+  .dest-card { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); transition: border-color 0.3s; }
+  .dest-card.open { border-color: rgba(212,168,67,0.3); }
+  .dest-header { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 1.8rem; background: rgba(255,255,255,0.03); cursor: pointer; user-select: none; transition: background 0.2s; }
+  .dest-header:hover { background: rgba(255,255,255,0.055); }
+  .dest-header-left { display: flex; align-items: center; gap: 1rem; }
+  .dest-flag { font-size: 1.7rem; }
+  .dest-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--chalk-white); }
+  .dest-tagline { font-size: 0.73rem; color: var(--text-muted); margin-top: 0.15rem; letter-spacing: 0.04em; }
+  .dest-right { display: flex; align-items: center; gap: 0.8rem; }
+  .dest-badge { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.22rem 0.65rem; border-radius: 30px; background: rgba(212,168,67,0.08); border: 1px dashed rgba(212,168,67,0.35); color: var(--fossil-gold); white-space: nowrap; }
+  .dest-chevron { font-size: 0.9rem; color: var(--text-muted); transition: transform 0.3s; }
+  .dest-card.open .dest-chevron { transform: rotate(180deg); }
+  .dest-body { display: none; padding: 1.5rem 1.8rem 1.8rem; background: rgba(0,0,0,0.12); }
+  .dest-card.open .dest-body { display: block; }
+
+  /* MINI TIMELINE (inside accordions) */
+  .mini-timeline { position: relative; padding-left: 2rem; }
+  .mini-timeline::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(to bottom, var(--ocean-teal), var(--fossil-gold), var(--dusk-coral), transparent); }
+  .mini-item { position: relative; margin-bottom: 1.8rem; }
+  .mini-item:last-child { margin-bottom: 0; }
+  .mini-dot { position: absolute; left: -2.4rem; top: 0.3rem; width: 10px; height: 10px; border-radius: 50%; background: var(--ocean-teal); border: 2px solid var(--ocean-deep); box-shadow: 0 0 0 3px rgba(42,127,143,0.2); }
+  .mini-dot.gold { background: var(--fossil-gold); box-shadow: 0 0 0 3px rgba(212,168,67,0.2); }
+  .mini-dot.coral { background: var(--dusk-coral); box-shadow: 0 0 0 3px rgba(196,107,58,0.2); }
+  .mini-day { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ocean-teal); margin-bottom: 0.25rem; }
+  .mini-day.gold { color: var(--fossil-gold); }
+  .mini-day.coral { color: var(--dusk-coral); }
+  .mini-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--chalk-white); margin-bottom: 0.35rem; }
+  .mini-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; }
+
+  .fixed-notice { background: rgba(42,127,143,0.06); border: 1px solid rgba(42,127,143,0.15); border-radius: 8px; padding: 1rem 1.2rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+  .fixed-notice strong { color: var(--sea-foam); display: block; margin-bottom: 0.3rem; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.65rem; }
+  .checklist li { display: flex; align-items: center; gap: 0.65rem; font-size: 0.83rem; color: var(--text-light); }
+  .checklist li::before { content: '◇'; color: var(--fossil-gold); font-size: 0.55rem; flex-shrink: 0; }
+
+  /* BTN */
+  .btn { display: inline-flex; align-items: center; gap: 0.6rem; background: transparent; border: 1px solid var(--ocean-teal); color: var(--sea-foam); padding: 0.65rem 1.4rem; border-radius: 50px; font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.3s, color 0.3s; cursor: pointer; }
+  .btn:hover { background: var(--ocean-teal); color: var(--ocean-deep); }
+
+  /* FOOTER */
+  footer { background: #08151f; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; padding: 3rem 2rem; }
+  footer .footer-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-style: italic; color: var(--shore-sand); margin-bottom: 0.5rem; }
+  footer p { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.08em; }
+  footer a { color: var(--ocean-teal); text-decoration: none; }
+  footer a:hover { color: var(--fossil-gold); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Campervan Trip '25</a>
+  <ul class="nav-links">
+    <li><a href="#hire">The Van</a></li>
+    <li><a href="#costs">Costs</a></li>
+    <li><a href="#destination">Where?</a></li>
+    <li><a href="#notes">Notes</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <svg class="ammonite-bg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 10 C155 10 190 45 190 100 C190 155 155 190 100 190 C45 190 10 155 10 100 C10 45 45 10 100 10Z" stroke="white" stroke-width="1.5" fill="none"/>
+    <path d="M100 30 C145 30 170 55 170 100 C170 145 145 170 100 170 C55 170 30 145 30 100 C30 55 55 30 100 30Z" stroke="white" stroke-width="1.5" fill="none"/>
+    <path d="M100 50 C135 50 150 65 150 100 C150 135 135 150 100 150 C65 150 50 135 50 100 C50 65 65 50 100 50Z" stroke="white" stroke-width="1.5" fill="none"/>
+    <path d="M100 70 C125 70 130 75 130 100 C130 125 125 130 100 130 C75 130 70 125 70 100 C70 75 75 70 100 70Z" stroke="white" stroke-width="1.5" fill="none"/>
+    <line x1="100" y1="10" x2="100" y2="70" stroke="white" stroke-width="1"/>
+    <line x1="190" y1="100" x2="130" y2="100" stroke="white" stroke-width="1"/>
+    <line x1="100" y1="190" x2="100" y2="150" stroke="white" stroke-width="1"/>
+    <line x1="10" y1="100" x2="70" y2="100" stroke="white" stroke-width="1"/>
+  </svg>
+  <p class="hero-tag">Campervan Adventure · August 2025</p>
+  <h1 class="hero-title">Where Could<br><em>We Go?</em></h1>
+  <p class="hero-subtitle">3 nights · 4 destinations in the running · one epic trip</p>
+  <div class="hero-dates">
+    <span class="hero-date-pill">📍 Romford Pick-up</span>
+    <span class="hero-date-pill">🗓 29 Aug – 1 Sept</span>
+    <span class="hero-date-pill">🚐 CaraSuite 700 ME</span>
+    <span class="hero-date-pill">👥 3 Nights</span>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- PHOTO MOSAIC -->
+<div style="max-width:1100px; margin: 0 auto; padding: 0 2rem;">
+  <div class="photo-mosaic">
+    <div class="mosaic-panel">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Jurassic Coast" loading="lazy">
+      <span class="caption">Durdle Door, Dorset</span>
+    </div>
+    <div class="mosaic-panel">
+      <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" alt="Cornwall" loading="lazy">
+      <span class="caption">Cornwall Coast</span>
+    </div>
+    <div class="mosaic-panel">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Snowdonia" loading="lazy">
+      <span class="caption">Snowdonia, Wales</span>
+    </div>
+    <div class="mosaic-panel">
+      <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=600&q=80" alt="Pembrokeshire" loading="lazy">
+      <span class="caption">Pembrokeshire</span>
+    </div>
+    <div class="mosaic-panel">
+      <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80" alt="Coastal sunset" loading="lazy">
+      <span class="caption">Coastal Sunset</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- THE VAN -->
+<section id="hire">
+  <p class="section-label">Transport</p>
+  <h2 class="section-title">The <span>Motorhome</span></h2>
+  <div class="divider"></div>
+
+  <div class="hire-grid">
+    <div class="info-card gold">
+      <span class="card-icon">🚐</span>
+      <p class="card-label">Vehicle</p>
+      <p class="card-value">2024 CaraSuite 700 ME</p>
+      <p class="card-sub"><a href="https://vaaroom.com/fleet/vaaroom-4-berth-motorhomes/" target="_blank" style="color:var(--ocean-teal); text-decoration:none;">View full details on Vaaroom →</a></p>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">🏢</span>
+      <p class="card-label">Hire Company</p>
+      <p class="card-value">Vaaroom</p>
+      <p class="card-sub">Cheapest &amp; closest pick-up available. ~30 min drive from home.</p>
+    </div>
+
+    <div class="info-card full">
+      <span class="card-icon">📍</span>
+      <p class="card-label">Depot Address</p>
+      <p class="card-value" style="font-size:1rem;">Romford Vaaroom Depot</p>
+      <p class="card-sub">Lakeview Park, Cummings Hall Lane, Noak Hill, Romford, Essex, RM3 7LE</p>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">🟢</span>
+      <p class="card-label">Pick-up</p>
+      <p class="card-value">Sat 29th August</p>
+      <p class="card-sub">12:00 PM (noon) — earlier pick-up fee included in cost</p>
+    </div>
+
+    <div class="info-card coral">
+      <span class="card-icon">🔁</span>
+      <p class="card-label">Drop-off</p>
+      <p class="card-value">Mon 1st September</p>
+      <p class="card-sub">2:00 PM — late drop-off fee included &nbsp;<span class="al-badge">AL Day</span></p>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">🛡</span>
+      <p class="card-label">Insurance</p>
+      <p class="card-value">Standard Insurance</p>
+      <p class="card-sub">Excess &amp; breakdown cover: +£90 — included in total cost below</p>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">🛏</span>
+      <p class="card-label">Bedding</p>
+      <p class="card-value">Bring Your Own</p>
+      <p class="card-sub">Sheets, duvets/sleeping bags &amp; pillows not provided — everyone must bring their own</p>
+    </div>
+  </div>
+
+  <br>
+  <a class="btn" href="https://vaaroom.com/fleet/vaaroom-4-berth-motorhomes/" target="_blank">🔗 View the CaraSuite 700 ME on Vaaroom →</a>
+</section>
+
+<div class="page-divider"></div>
+
+<!-- COSTS -->
+<section id="costs">
+  <p class="section-label">Finances</p>
+  <h2 class="section-title">Cost <span>Breakdown</span></h2>
+  <div class="divider"></div>
+
+  <div style="max-width: 580px;">
+    <table class="cost-table">
+      <tr>
+        <td>Motorhome Rental (3 nights)</td>
+        <td>£600.00</td>
+      </tr>
+      <tr>
+        <td>Earlier Pick-up &amp; Late Drop-off</td>
+        <td>£135.00</td>
+      </tr>
+      <tr>
+        <td>Insurance — Excess &amp; Breakdown Cover</td>
+        <td>£90.00</td>
+      </tr>
+      <tr>
+        <td>Depot Parking 🙄</td>
+        <td>£30.00</td>
+      </tr>
+      <tr>
+        <td>Toilet Chemical Cleaner 🙄</td>
+        <td>£10.00</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Total</strong></td>
+        <td><strong>£865.00</strong></td>
+      </tr>
+      <tr class="per-row">
+        <td>Per Person (÷3) <em style="font-size:0.7rem; color:var(--text-muted);">excl. petrol &amp; food</em></td>
+        <td>£288.33</td>
+      </tr>
+    </table>
+    <p class="cost-note">Petrol and food costs are on top and split separately. Additional hire fee may apply for camping chairs and tables — check when booking.</p>
+  </div>
+
+  <div class="deposit-pill">
+    <span>🔒</span>
+    <div><strong style="font-family:'Playfair Display',serif; font-size:1.05rem;">£250 Refundable Security Deposit</strong><br>
+    <span style="font-size:0.78rem;">Held by Vaaroom and returned after vehicle inspection on drop-off</span></div>
+  </div>
+
+  <br><br>
+
+  <p class="section-label">Cancellation Policy</p>
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--chalk-white); margin-bottom:1.2rem;">If Plans Change…</h3>
+
+  <table class="cancel-table">
+    <thead>
+      <tr>
+        <th>Notice Period</th>
+        <th style="text-align:right;">Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>More than 6 weeks before the trip</td><td>25% of total</td></tr>
+      <tr><td>3–6 weeks before the trip</td><td>50% of total</td></tr>
+      <tr><td>Less than 3 weeks before the trip</td><td>100% of total</td></tr>
+    </tbody>
+  </table>
+
+  <br>
+  <div class="alert">
+    <strong>⚠ Warning —</strong> Cancelling within 3 weeks of departure means the full £865 is forfeited. Everyone must be fully committed before the booking is confirmed.
+  </div>
+</section>
+
+<div class="page-divider"></div>
+
+<!-- DESTINATION / ITINERARY -->
+<section id="destination">
+  <p class="section-label">The Big Question</p>
+  <h2 class="section-title">Where Could <span>We Go?</span></h2>
+  <div class="divider"></div>
+
+  <div class="fixed-notice">
+    <strong>📌 Fixed for all destinations — Days 1 &amp; 4:</strong>
+    <strong style="color:var(--fossil-gold); font-size:0.78rem; display:block; margin-top:0.4rem;">Day 1 — Saturday 29th August</strong>
+    Meet at Ricky &amp; Jay's @ 10am &nbsp;·&nbsp; Leave cars there &nbsp;·&nbsp; Pick up motorhome @ 12pm from Vaaroom, Romford &nbsp;·&nbsp; Drive to destination (TBC)
+    <strong style="color:var(--dusk-coral); font-size:0.78rem; display:block; margin-top:0.6rem;">Day 4 — Monday 1st September</strong>
+    Return journey &nbsp;·&nbsp; Drop off motorhome @ 2pm &nbsp;·&nbsp; Pick up cars &amp; drive home &nbsp;<span class="al-badge">AL Day</span>
+  </div>
+
+  <div class="note" style="margin-bottom:2rem;">
+    <strong>🗺 Destination TBC —</strong> Four options are on the table. Tap each destination to expand and see the draft itinerary.
+  </div>
+
+  <div class="dest-grid">
+
+    <!-- JURASSIC COAST -->
+    <div class="dest-card" id="dest-jurassic">
+      <div class="dest-header" onclick="toggleDest('dest-jurassic')">
+        <div class="dest-header-left">
+          <span class="dest-flag">🦕</span>
+          <div>
+            <div class="dest-name">Jurassic Coast</div>
+            <div class="dest-tagline">Dorset &amp; East Devon · ~3.5 hrs · UNESCO World Heritage coastline</div>
+          </div>
+        </div>
+        <div class="dest-right">
+          <span class="dest-badge">Option 1</span>
+          <span class="dest-chevron">▼</span>
+        </div>
+      </div>
+      <div class="dest-body">
+        <div class="mini-timeline">
+          <div class="mini-item">
+            <div class="mini-dot"></div>
+            <p class="mini-day">Day 1 · Saturday 29th August</p>
+            <h4 class="mini-title">Departure from Romford</h4>
+            <p class="mini-desc">Meet at Ricky &amp; Jay's @ 10am · Leave cars · Pick up motorhome @ 12pm · Drive south-west ~3.5 hrs into Dorset · Find overnight campsite pitch near the coast</p>
+            <span class="tbc-badge">📍 Overnight stop TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 2 · Sunday 30th August</p>
+            <h4 class="mini-title">Jurassic Coast</h4>
+            <p class="mini-desc">Possible stops: Durdle Door · Lulworth Cove · Chesil Beach · West Bay · fossil hunting along the cliff faces</p>
+            <span class="tbc-badge">🗺 Stops TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 3 · Sunday 31st August</p>
+            <h4 class="mini-title">More Coast &amp; Final Night</h4>
+            <p class="mini-desc">Continue exploring · Lyme Regis · Golden Cap · Evening at the coast before return journey prep</p>
+            <span class="tbc-badge">🗺 TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot coral"></div>
+            <p class="mini-day coral">Day 4 · Monday 1st September <span class="al-badge">AL</span></p>
+            <h4 class="mini-title">Return to Romford</h4>
+            <p class="mini-desc">Pack up · Drive back ~3.5 hrs · Drop off motorhome @ 2pm · Collect cars · Drive home</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORNWALL -->
+    <div class="dest-card" id="dest-cornwall">
+      <div class="dest-header" onclick="toggleDest('dest-cornwall')">
+        <div class="dest-header-left">
+          <span class="dest-flag">🌊</span>
+          <div>
+            <div class="dest-name">Cornwall</div>
+            <div class="dest-tagline">South-West England · ~5.5 hrs · Surf, cliffs, pasties &amp; cream teas</div>
+          </div>
+        </div>
+        <div class="dest-right">
+          <span class="dest-badge">Option 2</span>
+          <span class="dest-chevron">▼</span>
+        </div>
+      </div>
+      <div class="dest-body">
+        <div class="mini-timeline">
+          <div class="mini-item">
+            <div class="mini-dot"></div>
+            <p class="mini-day">Day 1 · Saturday 29th August</p>
+            <h4 class="mini-title">Long Haul South-West</h4>
+            <p class="mini-desc">Meet at Ricky &amp; Jay's @ 10am · Leave cars · Pick up motorhome @ 12pm · Long drive ~5.5 hrs into Cornwall · Overnight near Bodmin or St Austell</p>
+            <span class="tbc-badge">📍 Overnight stop TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 2 · Sunday 30th August</p>
+            <h4 class="mini-title">West Cornwall</h4>
+            <p class="mini-desc">Possible stops: Land's End · St Ives · Porthcurno beach · The Minack Theatre · Penzance harbour</p>
+            <span class="tbc-badge">🗺 Stops TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 3 · Monday 31st August</p>
+            <h4 class="mini-title">North Cornwall</h4>
+            <p class="mini-desc">Newquay · Fistral Beach · Padstow &amp; Rick Stein territory · head east to position for return</p>
+            <span class="tbc-badge">🗺 TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot coral"></div>
+            <p class="mini-day coral">Day 4 · Monday 1st September <span class="al-badge">AL</span></p>
+            <h4 class="mini-title">Return to Romford</h4>
+            <p class="mini-desc">Pack up · Long drive back ~5.5 hrs · Drop off motorhome @ 2pm · Collect cars · Drive home</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WALES PEMBROKESHIRE -->
+    <div class="dest-card" id="dest-pembs">
+      <div class="dest-header" onclick="toggleDest('dest-pembs')">
+        <div class="dest-header-left">
+          <span class="dest-flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿</span>
+          <div>
+            <div class="dest-name">Wales — Pembrokeshire</div>
+            <div class="dest-tagline">South-West Wales · ~4 hrs · National Park coastline &amp; hidden coves</div>
+          </div>
+        </div>
+        <div class="dest-right">
+          <span class="dest-badge">Option 3</span>
+          <span class="dest-chevron">▼</span>
+        </div>
+      </div>
+      <div class="dest-body">
+        <div class="mini-timeline">
+          <div class="mini-item">
+            <div class="mini-dot"></div>
+            <p class="mini-day">Day 1 · Saturday 29th August</p>
+            <h4 class="mini-title">Drive to Pembrokeshire</h4>
+            <p class="mini-desc">Meet at Ricky &amp; Jay's @ 10am · Leave cars · Pick up motorhome @ 12pm · Drive west ~4 hrs · Cross into Wales · Overnight near Tenby or Pembroke</p>
+            <span class="tbc-badge">📍 Overnight stop TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 2 · Sunday 30th August</p>
+            <h4 class="mini-title">Pembrokeshire Coast</h4>
+            <p class="mini-desc">Possible stops: Barafundle Bay · Stackpole Head · St Davids Cathedral · Solva · coastal path walking</p>
+            <span class="tbc-badge">🗺 Stops TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 3 · Monday 31st August</p>
+            <h4 class="mini-title">Tenby &amp; South Coast</h4>
+            <p class="mini-desc">Tenby old walled town · Manorbier Castle beach · Freshwater West · wild swimming spots</p>
+            <span class="tbc-badge">🗺 TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot coral"></div>
+            <p class="mini-day coral">Day 4 · Monday 1st September <span class="al-badge">AL</span></p>
+            <h4 class="mini-title">Return to Romford</h4>
+            <p class="mini-desc">Pack up · Drive back east ~4 hrs · Drop off motorhome @ 2pm · Collect cars · Drive home</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WALES SNOWDONIA -->
+    <div class="dest-card" id="dest-snowdon">
+      <div class="dest-header" onclick="toggleDest('dest-snowdon')">
+        <div class="dest-header-left">
+          <span class="dest-flag">⛰️</span>
+          <div>
+            <div class="dest-name">Wales — Snowdonia</div>
+            <div class="dest-tagline">North Wales · ~4 hrs · Mountains, glacial lakes &amp; dramatic landscapes</div>
+          </div>
+        </div>
+        <div class="dest-right">
+          <span class="dest-badge">Option 4</span>
+          <span class="dest-chevron">▼</span>
+        </div>
+      </div>
+      <div class="dest-body">
+        <div class="mini-timeline">
+          <div class="mini-item">
+            <div class="mini-dot"></div>
+            <p class="mini-day">Day 1 · Saturday 29th August</p>
+            <h4 class="mini-title">Drive to Snowdonia</h4>
+            <p class="mini-desc">Meet at Ricky &amp; Jay's @ 10am · Leave cars · Pick up motorhome @ 12pm · Drive north-west ~4 hrs · Enter Snowdonia National Park · Overnight near Betws-y-Coed or Llanberis</p>
+            <span class="tbc-badge">📍 Overnight stop TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 2 · Sunday 30th August</p>
+            <h4 class="mini-title">Snowdon Day</h4>
+            <p class="mini-desc">Hike Snowdon via the Pyg Track or Llanberis Path · or take the mountain railway · Llyn Padarn lake swim · Llanberis village</p>
+            <span class="tbc-badge">🗺 Stops TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot gold"></div>
+            <p class="mini-day gold">Day 3 · Monday 31st August</p>
+            <h4 class="mini-title">Valleys &amp; Coast</h4>
+            <p class="mini-desc">Harlech Castle · Barmouth beach &amp; bridge · Llyn Peninsula · evening at the coast · final night</p>
+            <span class="tbc-badge">🗺 TBC</span>
+          </div>
+          <div class="mini-item">
+            <div class="mini-dot coral"></div>
+            <p class="mini-day coral">Day 4 · Monday 1st September <span class="al-badge">AL</span></p>
+            <h4 class="mini-title">Return to Romford</h4>
+            <p class="mini-desc">Pack up · Drive back ~4 hrs · Drop off motorhome @ 2pm · Collect cars · Drive home</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="page-divider"></div>
+
+<!-- NOTES + PACKING -->
+<section id="notes">
+  <p class="section-label">Essentials</p>
+  <h2 class="section-title">Important <span>Notes</span></h2>
+  <div class="divider"></div>
+
+  <div class="note"><strong>🚗 Your Car —</strong> Leave personal vehicles at the Vaaroom depot (RM3 7LE) for the full trip. Parking costs £30 and is already included in the total.</div>
+  <div class="note"><strong>📅 Annual Leave —</strong> Monday 1st September is an AL day for everyone. Drop-off is 2pm — a relaxed end to the trip.</div>
+  <div class="note"><strong>🪑 Chairs &amp; Tables —</strong> Additional hire fee may apply for camping chairs and tables. Confirm with Vaaroom when booking.</div>
+  <div class="note"><strong>🔒 Security Deposit —</strong> £250 refundable deposit required. Returned after the motorhome is inspected on drop-off.</div>
+  <div class="alert"><strong>⚠ Cancellation —</strong> 100% fee within 3 weeks of departure. Only confirm the booking once absolutely everyone is committed.</div>
+
+  <br>
+  <p class="section-label">What to Pack</p>
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--chalk-white); margin-bottom:1.5rem;">Don't Forget…</h3>
+  <ul class="checklist">
+    <li>Bedding — sheets &amp; pillowcases</li>
+    <li>Sleeping bag or duvet</li>
+    <li>Pillows</li>
+    <li>Towels (beach &amp; bathroom)</li>
+    <li>Warm layers for evenings</li>
+    <li>Waterproof / rain jacket</li>
+    <li>Walking / hiking boots</li>
+    <li>Flip flops or beach shoes</li>
+    <li>Swimwear</li>
+    <li>Sun cream (high SPF)</li>
+    <li>Sunglasses &amp; sun hat</li>
+    <li>Portable phone charger</li>
+    <li>Cash for campsites &amp; parking</li>
+    <li>Toiletries &amp; medications</li>
+    <li>Cooking food &amp; essentials</li>
+    <li>Outdoor chairs &amp; blankets</li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-title">Campervan Trip · August 2025</p>
+  <p>Romford → TBC · 3 Nights · The Great British Adventure</p>
+  <br>
+  <p>Motorhome: <a href="https://vaaroom.com/fleet/vaaroom-4-berth-motorhomes/" target="_blank">2024 CaraSuite 700 ME via Vaaroom</a> &nbsp;·&nbsp; Destination TBC</p>
+</footer>
+
+<script>
+  function toggleDest(id) {
+    const card = document.getElementById(id);
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.dest-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  }
+</script>
+</body>
+</html>
